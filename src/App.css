@@ -25,7 +25,7 @@ h1 {
   font-style: normal;
 }
 
-p {
+h2 {
   font-size: 30px;
   @apply text-[#96aaa9];
   
