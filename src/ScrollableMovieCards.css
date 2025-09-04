@@ -1,0 +1,39 @@
+/* ScrollableMovieCards.css */
+
+.scrollable-movie-cards {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #618784 transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollable-movie-cards::-webkit-scrollbar {
+  height: 6px;
+}
+
+.scrollable-movie-cards::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable-movie-cards::-webkit-scrollbar-thumb {
+  background-color: #618784;
+  border-radius: 6px;
+}
+
+.cards-container {
+  display: inline-flex;
+  gap: 24px;
+  padding: 0 16px;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-width: max-content;
+}
+
+/* Optional: Smooth scroll behavior (if supported) */
+.cards-container::-webkit-scrollbar {
+  display: none;
+}
