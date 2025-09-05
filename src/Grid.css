@@ -1,0 +1,35 @@
+/* Grid.css */
+
+.movie-grid-container {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+  max-width: 1600px;
+  margin: 7px auto;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60vw, 1fr));
+  justify-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 580px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fit, minmax(40vw, 1fr));
+  }
+}
+
+@media (min-width: 787px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
+  }
+}
+
+@media (min-width: 1055px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+  }
+}

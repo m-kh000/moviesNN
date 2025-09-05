@@ -5,12 +5,9 @@ import "./ScrollableMovieCards.css";
 
 const ScrollableMovieCards = ({ movies }) => {
   return (
-    <div className="scrollable-movie-cards">
-  <div className="cards-container">
+    <div className="scrollable-movie-cards " >
+  <div className="cards-container ">
     {movies.map((movie, index) => {
-      // ✅ Safe to log inside the function body
-      console.log(movie.original_title);
-      
       return (
         <MovieCard
           key={index}

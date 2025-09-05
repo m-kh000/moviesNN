@@ -3,8 +3,6 @@
 @import 'tailwindcss';
 
 body {
-  margin: 0;
-  padding: 0;
   text-align: center;
   background-color: black; /* Fallback background */
   background-image: url('/3000.jpg'); /* Your image */
@@ -26,9 +24,13 @@ h1 {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 26px;
   @apply text-[#96aaa9];
-  
+}
+@media(min-width : 500px){
+  h2{
+  font-size: 36px;
+  }
 }
 
 input {
