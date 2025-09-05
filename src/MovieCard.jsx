@@ -1,4 +1,4 @@
-import "./MovieCard.css";
+import "./css/MovieCard.css";
   const MovieCard = ({ movie: { poster_path, title, release_date, vote_average }, isLiked, onLike }) => {
   const year = release_date?.split('-')[0] || 'N/A';
 

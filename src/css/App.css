@@ -14,13 +14,14 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1 {
+.h1 {
   color: #618784;
   font-size: 90px;
-  margin: 40px;
+  margin: 40px ;
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
   font-style: normal;
+  @apply my-50;
 }
 
 h2 {
@@ -40,6 +41,13 @@ input {
   @apply rounded-2xl p-2;
 }
 
+button{
+  @apply h-fit;
+}
+
+.section{
+  @apply flex place-items-center justify-between bg-[#090b0b7e] rounded-2xl p-6 m-11;
+}
 .logo {
   padding: 1.5em;
   will-change: filter;
@@ -51,7 +59,6 @@ input {
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
