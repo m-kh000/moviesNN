@@ -1,24 +1,18 @@
 // Grid.jsx
 import React from "react";
-import MovieCard from "./movieCard"; // Adjust path if needed
+import MovieCard from "./MovieCard"; // Make sure component name matches
 import "./Grid.css";
 
-const Grid = ({ popularMovies }) => {
+const Grid = ({ popularMovies, likedMovies, onToggleLike }) => {
   return (
-    <div className="movie-grid-container ">
-      <div className="movie-grid ">
-        {popularMovies.map((movie, index) => (
+    <div className="movie-grid-container">
+      <div className="movie-grid">
+        {popularMovies.map((movie) => (
           <MovieCard
-            key={index}
-            title={movie.original_title}
-            img={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` // 🔴 Fixed: removed extra space
-                : "/placeholder.jpg"
-            }
-            year={movie.release_date?.split("-")[0] || "N/A"}
-            rating={movie.vote_average?.toFixed(1)}
-            isLiked={movie.isLiked}
+            key={movie.id} // Use movie.id instead of index
+            movie={movie}
+            isLiked={likedMovies[movie.id] ?? false}
+            onLike={() => onToggleLike(movie.id)}
           />
         ))}
       </div>
