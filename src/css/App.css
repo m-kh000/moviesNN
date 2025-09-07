@@ -5,7 +5,7 @@
 body {
   text-align: center;
   background-color: black; /* Fallback background */
-  background-image: url('/3000.jpg'); /* Your image */
+  background-image: url('/img/3000.jpg'); /* Your image */
   background-repeat: no-repeat;
   background-position: top center;
   background-size: 100% auto; /* Full width, preserve aspect ratio */
@@ -15,18 +15,17 @@ body {
 }
 
 .h1 {
-  color: #618784;
   font-size: 90px;
   margin: 40px ;
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
   font-style: normal;
-  @apply my-50;
+  @apply text-[#5f8296] sm:text-[#618784] my-20 sm:my-50 text-[80px] sm:text-[90px];
 }
 
 h2 {
-  font-size: 26px;
-  @apply text-[#96aaa9];
+  font-size: 22px;
+  @apply text-[#96aaa9] ;
 }
 @media(min-width : 500px){
   h2{
@@ -38,15 +37,18 @@ input {
   font-size: 20px;
   border: 1px solid gray;
   outline: none;
-  @apply rounded-2xl p-2;
+  @apply rounded-2xl p-2 text-[18px] sm:text-[20px];
 }
 
 button{
-  @apply h-fit;
+  @apply p-2;
 }
 
 .section{
-  @apply flex place-items-center justify-between bg-[#090b0b7e] rounded-2xl p-6 m-11;
+  @apply flex place-items-center justify-between bg-[#07080895] rounded-2xl p-5 m-6;
+}
+.icon{
+  @apply w-5 h-5;
 }
 .logo {
   padding: 1.5em;

@@ -1,14 +1,15 @@
 import "./css/MovieCard.css";
-  const MovieCard = ({ movie: { poster_path, title, release_date, vote_average }, isLiked, onLike }) => {
+  const MovieCard = ({ movie: { poster_path, title, release_date, vote_average, original_language }, isLiked, onLike }) => {
   const year = release_date?.split('-')[0] || 'N/A';
-
-  return (
-    <div className="movie-card">
+  const lang = original_language?.toLowerCase()
+  return (lang == "ko" || lang == "ta" || lang == "ja" 
+  ? <></>
+  :    <div className="movie-card">
       <div className="movie-poster">
         <img
           src={poster_path
             ? `https://image.tmdb.org/t/p/w500${poster_path}`
-            : "/placeholder.jpg"}
+            : "/img/placeholder.jpg"}
           alt={title}
         />
         <button onClick={onLike} className={`like-icon ${isLiked ? 'liked' : ''}`}>
@@ -22,8 +23,7 @@ import "./css/MovieCard.css";
           <span className="movie-rating">⭐ {vote_average?.toFixed(1) ?? 0}</span>
         </div>
       </div>
-    </div>
-  );
+    </div>);
 };
 
 // Remove default props for isLiked since it's controlled now

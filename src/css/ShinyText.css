@@ -1,6 +1,6 @@
-@import tailwindcss;
+@import 'tailwindcss';
 .shiny-text {
-    @apply text-[#92bab7a5];
+    @apply text-[#97bfd7a5] sm:text-[#92bab7a5];
   background: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0) 40%,

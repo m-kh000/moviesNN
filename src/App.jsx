@@ -43,12 +43,13 @@ function App() {
     setSearch(e.target.value);
   };
 
-  const fetchMovies = async () => {
+  const fetchMovies = async (query = "") => {
     setIsLoading(true);
     setErrorMes("");
-
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query
+      ?`${API_BASE_URL}/search/movie?query=${encodeURI(query)}`
+      :`${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endpoint, API_OPTIONS);
 
       if (!response.ok) {
@@ -56,13 +57,12 @@ function App() {
       }
 
       const data = await response.json();
-
       if (!data.results || data.results.length === 0) {
         setErrorMes("No movies found.");
         setPopularMovies([]);
         return;
       }
-
+// console.log(query , data);
       setPopularMovies(data.results);
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -81,23 +81,23 @@ function App() {
   };
 
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(search);
+  }, [search]);
 
   // Optional: Filter movies based on search
-  const displayedMovies = search
-    ? popularMovies.filter((movie) =>
-        movie.title?.toLowerCase().includes(search.toLowerCase())
-      )
-    : popularMovies;
+  // const displayedMovies = search
+  //   ? popularMovies.filter((movie) =>
+  //       movie.title?.toLowerCase().includes(search.toLowerCase())
+  //     )
+  //   : popularMovies;
 
   return (
-    <div className="place-items-center w-[98vw] pt-11">
+    <div className="place-items-center w-[98vw] mt-11 mb-50">
       <div className="my-10">
         <div className="h1">
           Best Movies in&nbsp;
           <ShinyText
-            text=" MKovies"
+            text="MKovies"
             disabled={false}
             speed={3}
             className="custom-class"
@@ -123,22 +123,22 @@ function App() {
         <p className="text-red-500">{errorMes}</p>
       ) : (
         <div id="popular-container" className="w-[95vw]">
-          <div className="section">
+          <div className="section ">
             <h2>Popular Movies</h2>
             <button id="toggle-view" onClick={toggleView}>
-              {isGrid ? "Switch to List  View" : "Switch to Grid View"}
+              <img src={isGrid ? "./img/scr.png":"./img/grid.png"} className="icon"/>
             </button>
           </div>
 
           {isGrid ? (
             <Grid
-              popularMovies={displayedMovies}
+              popularMovies={popularMovies}
               onToggleLike={toggleLike}
               likedMovies={likedMovies}
             />
           ) : (
             <ScrollableMovieCards
-              movies={displayedMovies}
+              movies={popularMovies}
               onToggleLike={toggleLike}
               likedMovies={likedMovies}
             />

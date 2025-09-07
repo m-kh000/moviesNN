@@ -1,4 +1,5 @@
 /* ScrollableMovieCards.css */
+@import "tailwindcss";
 
 .scrollable-movie-cards {
   width: 100%;
@@ -9,6 +10,7 @@
   scrollbar-width: thin;
   scrollbar-color: #618784 transparent;
   -webkit-overflow-scrolling: touch;
+  @apply mt-11;
 }
 
 .scrollable-movie-cards::-webkit-scrollbar {

@@ -5,15 +5,13 @@
   padding: 3px;
   box-sizing: border-box;
   max-width: 1600px;
-  margin: 7px auto;
+  margin: 51px auto;
 }
 
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(60vw, 1fr));
   justify-items: center;
-  padding: 0;
-  margin: 0;
 }
 
 @media (min-width: 580px) {
