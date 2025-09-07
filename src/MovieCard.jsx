@@ -1,4 +1,5 @@
 import "./css/MovieCard.css";
+import pl from "/img/placeholder.jpg";
   const MovieCard = ({ movie: { poster_path, title, release_date, vote_average, original_language }, isLiked, onLike }) => {
   const year = release_date?.split('-')[0] || 'N/A';
   const lang = original_language?.toLowerCase()
@@ -9,7 +10,7 @@ import "./css/MovieCard.css";
         <img
           src={poster_path
             ? `https://image.tmdb.org/t/p/w500${poster_path}`
-            : "/img/placeholder.jpg"}
+            : pl}
           alt={title}
         />
         <button onClick={onLike} className={`like-icon ${isLiked ? 'liked' : ''}`}>
