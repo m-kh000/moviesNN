@@ -5,6 +5,8 @@ import Grid from "./Grid";
 import { PuffLoader } from "react-spinners";
 import MovieCard from "./MovieCard";
 import ShinyText from "./ShinyText";
+import scr from "/img/scr.png";
+import grid from "/img/grid.png";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY =
@@ -127,7 +129,7 @@ function App() {
           <div className="section ">
             <h2>Popular Movies</h2>
             <button id="toggle-view" onClick={toggleView}>
-              <img src={isGrid ? "/img/scr.png":"/img/grid.png"} className="icon"/>
+              <img src={isGrid ? scr : grid} className="icon"/>
             </button>
           </div>
 

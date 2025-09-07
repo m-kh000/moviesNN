@@ -24,7 +24,7 @@ body {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
   font-style: normal;
-  @apply text-[#5f8f96] sm:text-[#618784] my-20 sm:my-50 text-[80px] sm:text-[90px];
+  @apply text-[#5f8296] sm:text-[#618784] my-20 sm:my-50 text-[80px] sm:text-[90px];
 }
 
 h2 {
