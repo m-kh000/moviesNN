@@ -17,6 +17,7 @@ const API_OPTIONS = {
   },
 };
 
+
 function App() {
   const [search, setSearch] = useState("");
   const [errorMes, setErrorMes] = useState("");
@@ -126,7 +127,7 @@ function App() {
           <div className="section ">
             <h2>Popular Movies</h2>
             <button id="toggle-view" onClick={toggleView}>
-              <img src={isGrid ? "./img/scr.png":"./img/grid.png"} className="icon"/>
+              <img src={isGrid ? "/img/scr.png":"/img/grid.png"} className="icon"/>
             </button>
           </div>
 
