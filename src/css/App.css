@@ -30,7 +30,7 @@ body {
 
 h2 {
   font-size: 22px;
-  @apply text-[#96aaa9] ;
+  @apply text-[#94a5bb] sm:text-[#96aaa9] ;
 }
 @media(min-width : 500px){
   h2{
@@ -39,7 +39,7 @@ h2 {
 }
 
 p{
-  @apply text-[#96aaa9] ;
+  @apply text-[#94a5bb] sm:text-[#96aaa9] ;
 }
 
 input {
