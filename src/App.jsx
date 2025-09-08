@@ -6,8 +6,8 @@ import Grid from "./Grid";
 import { PuffLoader } from "react-spinners";
 import MovieCard from "./MovieCard";
 import ShinyText from "./ShinyText";
-import scr from "/img/scr.png";
-import grid from "/img/grid.png";
+import scr from "/img/scr.svg";
+import grid from "/img/grid.svg";
 import pl from "/img/img pl.svg";
 import { getTrendingMovies, updateCount } from "./appwrite";
 
@@ -114,7 +114,7 @@ function App() {
   //   : popularMovies;
 
   return (
-    <div className="place-items-center w-[98vw] mt-11 mb-50">
+    <div className="w-full place-items-center mt-11 mb-50">
       <div className="my-10">
         <div className="h1">
           Best Movies in&nbsp;
@@ -182,7 +182,7 @@ function App() {
           <div className="section ">
             <h2>{debouseSearch.length == 0 ?"Popular Movies":`Search results for ${debouseSearch}`}</h2>
             <button id="toggle-view" onClick={toggleView}>
-              <img src={isGrid ? scr : grid} className="icon"/>
+              <img  src={isGrid ? scr : grid} className="icon"/>
             </button>
           </div>
 

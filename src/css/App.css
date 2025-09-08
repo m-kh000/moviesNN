@@ -10,12 +10,13 @@ body {
   background-position: top center;
   background-size: 100% auto; /* Full width, preserve aspect ratio */
   min-height: 100vh; /* Ensures body takes at least full viewport height */
-  width: 100%;
+  width: 110%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 @media(min-width : 500px){
   body{
   background-image: url("/img/3000.jpg"); /* Your image */
+  width: 100%;
 }}
 
 .h1 {
@@ -43,20 +44,21 @@ p{
 
 input {
   font-size: 20px;
-  border: 1px solid gray;
+  color: #999999;
+  border: 1px solid #777777;
   outline: none;
   @apply rounded-2xl p-2 text-[18px] sm:text-[20px];
 }
 
 button{
-  @apply p-2;
+  @apply p-2 bg-[#1d2129];
 }
 
 .section{
   @apply flex place-items-center justify-between bg-[#07080895] rounded-2xl p-5 m-6;
 }
 .icon{
-  @apply w-5 h-5;
+  @apply w-7 h-7;
 }
 .logo {
   padding: 1.5em;
