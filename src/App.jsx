@@ -8,6 +8,7 @@ import MovieCard from "./MovieCard";
 import ShinyText from "./ShinyText";
 import scr from "/img/scr.png";
 import grid from "/img/grid.png";
+import pl from "/img/img pl.svg";
 import { getTrendingMovies, updateCount } from "./appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
@@ -29,6 +30,10 @@ function App() {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isGrid, setIsGrid] = useState(true);
+  const [likedMovies, setLikedMovies] = useState(() => {
+    const saved = localStorage.getItem("likedMovies");
+    return saved ? JSON.parse(saved) : {};
+  });
 
   useDebounce(
     () => {
@@ -37,24 +42,20 @@ function App() {
     1000,       //time in ms
     [search]    //dep
   );
-  // Track liked movies by ID
-  const [likedMovies, setLikedMovies] = useState(() => {
-    const saved = localStorage.getItem("likedMovies");
-    return saved ? JSON.parse(saved) : {};
-  });
-
-  // Save to localStorage whenever likedMovies changes
-  useEffect(() => {
-    localStorage.setItem("likedMovies", JSON.stringify(likedMovies));
-  }, [likedMovies]);
 
   const toggleView = () => {
     setIsGrid((prev) => !prev);
   };
-
+  const toggleLike = (movieId) => {
+    setLikedMovies((prev) => ({
+      ...prev,
+      [movieId]: !prev[movieId],
+    }));
+  };
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
@@ -90,13 +91,6 @@ function App() {
     }
   };
 
-  const toggleLike = (movieId) => {
-    setLikedMovies((prev) => ({
-      ...prev,
-      [movieId]: !prev[movieId],
-    }));
-  };
-
   useEffect(() => {
     const fetchTrending = async () => {
       const trending = await getTrendingMovies();
@@ -109,6 +103,9 @@ function App() {
     fetchMovies(debouseSearch);
   }, [debouseSearch]);
 
+    useEffect(() => {
+    localStorage.setItem("likedMovies", JSON.stringify(likedMovies));
+  }, [likedMovies]);
   // Optional: Filter movies based on search
   // const displayedMovies = search
   //   ? popularMovies.filter((movie) =>
@@ -128,12 +125,44 @@ function App() {
             className="custom-class"
           />
         </div>
-
-        {/* {trendingMovies.map((movie,index) => (<div key={movie.$id} className="flex">
-          <p>{index+1}</p>
-          <img src={movie.poster_url} alt="poster" style={{width: '50px'}}/>
-          </div>))} */}
+      </div>
       
+        <div className="flex flex-wrap justify-center place-items-center max-w-[98vw] ">
+            {Array.from({length: 5}).map((_, index) => {
+              const movie = trendingMovies[index];
+              return (
+                <div
+                  key={movie?.$id || index}
+                  className="flex place-items-center justify-center lg:basis-1/5 basis-1/3 "
+                >
+                  <p className="font-bold text-[24vw] lg:text-[15vw]"
+                  style={{
+                  WebkitTextStroke: '1px #96aaa9',
+                  color: 'transparent'}}>
+                    {index + 1}
+                  </p>
+                  {movie ? (
+                    movie.poster_url != "https://image.tmdb.org/t/p/w500null" ? (
+                      <img
+                        src={movie.poster_url}
+                        alt="poster"
+                        className="w-18 h-26 rounded-2xl sm:w-28 sm:h-42 shadow-black -translate-x-5 sm:-translate-x-8"
+                      />
+                    ) : (
+                      <div className="w-18 h-26 sm:w-28 sm:h-42 bg-[#1d2129ee] sm:bg-[#1a1a25ee] rounded-2xl shadow-black -translate-x-5 sm:-translate-x-8 place-items-center ">
+                        <div className="w-fit h-full flex place-items-center"><img 
+                          src={pl}
+                          className="w-8 h-8"/>
+                      </div>
+                      </div>
+                    )
+                  ) : (
+                    <div className="w-18 h-26 sm:w-24 sm:h-36 animate-pulse rounded-2xl -translate-x-5 sm:-translate-x-8" style={{backgroundColor: '#7a8e8d'}} />
+                  )}
+                </div>
+              );
+            })}
+          </div>
 
         <input
           type="search"
@@ -142,7 +171,6 @@ function App() {
           onChange={handleSearch}
           className="search-input"
         />
-      </div>
 
 
       {isLoading ? (
