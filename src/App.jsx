@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {useDebounce} from "react-use";
 import "./css/App.css";
 import ScrollableMovieCards from "./ScrollableMovieCards";
 import Grid from "./Grid";
@@ -7,10 +8,10 @@ import MovieCard from "./MovieCard";
 import ShinyText from "./ShinyText";
 import scr from "/img/scr.png";
 import grid from "/img/grid.png";
+import { updateSearchCount } from "./appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Y2JkMTJkYjk3NGI2MGVlNjU0MmE1OWE1ZDlhODQ0ZCIsIm5iZiI6MTc1MjMxMzE2MS45NDU5OTk5LCJzdWIiOiI2ODcyMmQ0OWQxNTBjM2NjNjVhOTdkNTMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.h9_Q1zBtKrGiwTJRy9qFpvaxGDQhL4UmDla8tc2x9as";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const API_OPTIONS = {
   method: "GET",
   headers: {
@@ -22,11 +23,19 @@ const API_OPTIONS = {
 
 function App() {
   const [search, setSearch] = useState("");
+  const [debouseSearch,setDebouseSearch] = useState("")
   const [errorMes, setErrorMes] = useState("");
   const [popularMovies, setPopularMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isGrid, setIsGrid] = useState(true);
 
+  useDebounce(
+    () => {
+      setDebouseSearch(search)
+    },
+    1000,       //time in ms
+    [search]    //dep
+  );
   // Track liked movies by ID
   const [likedMovies, setLikedMovies] = useState(() => {
     const saved = localStorage.getItem("likedMovies");
@@ -65,8 +74,12 @@ function App() {
         setPopularMovies([]);
         return;
       }
-// console.log(query , data);
       setPopularMovies(data.results);
+
+      if(query && data.results.length > 0){
+        updateSearchCount(query,data.results[0]);
+    }
+
     } catch (error) {
       console.error("Error fetching movies:", error);
       setErrorMes("Failed to fetch. Please try again.");
@@ -84,8 +97,8 @@ function App() {
   };
 
   useEffect(() => {
-    fetchMovies(search);
-  }, [search]);
+    fetchMovies(debouseSearch);
+  }, [debouseSearch]);
 
   // Optional: Filter movies based on search
   // const displayedMovies = search
@@ -116,9 +129,6 @@ function App() {
         />
       </div>
 
-      {search && (
-        <p className="opacity-50 my-10">Search results for "{search}"</p>
-      )}
 
       {isLoading ? (
         <PuffLoader color="#768d91" size={50} />
@@ -127,7 +137,7 @@ function App() {
       ) : (
         <div id="popular-container" className="w-[95vw]">
           <div className="section ">
-            <h2>Popular Movies</h2>
+            <h2>{debouseSearch.length == 0 ?"Popular Movies":`Search results for ${debouseSearch}`}</h2>
             <button id="toggle-view" onClick={toggleView}>
               <img src={isGrid ? scr : grid} className="icon"/>
             </button>
