@@ -11,10 +11,25 @@ const client = new Client()
 
 const database = new Databases(client);
 
-export const updateSearchCount = async (search, movie) =>{
+export const getTrendingMovies = async () => {
+    try{
+        const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+            Query.limit(5),
+            Query.orderDesc('count'),
+        ])
+        return result.documents;
+    }
+    catch(error){
+        console.error("Error:", error);
+        return [];
+    }
+}
+
+
+export const updateCount = async (search, movie) =>{
 try{
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-        Query.equal('search', search),
+        Query.equal('movie_id', movie.id),
     ])
 
     if (result.documents.length > 0){
@@ -25,9 +40,9 @@ try{
     }
     else{
         await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
+            movie_id : movie.id,
             search,
             count: 1,
-            movie_id : movie.id,
             poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
         });
     }

@@ -8,7 +8,7 @@ import MovieCard from "./MovieCard";
 import ShinyText from "./ShinyText";
 import scr from "/img/scr.png";
 import grid from "/img/grid.png";
-import { updateSearchCount } from "./appwrite";
+import { getTrendingMovies, updateCount } from "./appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -26,6 +26,7 @@ function App() {
   const [debouseSearch,setDebouseSearch] = useState("")
   const [errorMes, setErrorMes] = useState("");
   const [popularMovies, setPopularMovies] = useState([]);
+  const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isGrid, setIsGrid] = useState(true);
 
@@ -77,7 +78,7 @@ function App() {
       setPopularMovies(data.results);
 
       if(query && data.results.length > 0){
-        updateSearchCount(query,data.results[0]);
+        updateCount(query,data.results[0]);
     }
 
     } catch (error) {
@@ -95,6 +96,14 @@ function App() {
       [movieId]: !prev[movieId],
     }));
   };
+
+  useEffect(() => {
+    const fetchTrending = async () => {
+      const trending = await getTrendingMovies();
+      setTrendingMovies(trending);
+    };
+    fetchTrending();
+  },[])
 
   useEffect(() => {
     fetchMovies(debouseSearch);
@@ -119,6 +128,12 @@ function App() {
             className="custom-class"
           />
         </div>
+
+        {/* {trendingMovies.map((movie,index) => (<div key={movie.$id} className="flex">
+          <p>{index+1}</p>
+          <img src={movie.poster_url} alt="poster" style={{width: '50px'}}/>
+          </div>))} */}
+      
 
         <input
           type="search"
