@@ -111,9 +111,9 @@ function App() {
   //   : popularMovies;
 
   return (
-    <div className="w-full place-items-center mt-11 mb-50">
-      <div className="my-10">
-        <div className="h1">
+    <div className="place-items-center mt-11 mb-50">
+      <div className="w-[110vw] sm:w-[98vw] my-10">
+        <div className="h1 ">
           Best Movies in&nbsp;
           <ShinyText
             text="MKovies"
