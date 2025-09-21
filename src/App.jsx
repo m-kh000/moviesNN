@@ -176,7 +176,7 @@ function App() {
       />
 
       {isLoading ? (
-        <PuffLoader color="#768d91" size={50} />
+        <PuffLoader color="#768d91" size={50} className="m-20"/>
       ) : errorMes ? (
         <p className="text-red-500">{errorMes}</p>
       ) : (

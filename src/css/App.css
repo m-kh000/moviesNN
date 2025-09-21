@@ -21,16 +21,16 @@ body {
 
 .h1 {
   font-size: 90px;
-  margin: 90px ;
+  margin: 40px ;
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
   font-style: normal;
-  @apply text-[#5f8296] sm:text-[#618784] my-20 sm:my-30 text-[80px] sm:text-[90px];
+  @apply text-[#5f8296] md:text-[#618784] my-20 sm:my-30 text-[80px] sm:text-[90px];
 }
 
 h2 {
   font-size: 22px;
-  @apply text-[#94a5bb] sm:text-[#96aaa9] ;
+  @apply text-[#94a5bb] md:text-[#96aaa9] ;
 }
 @media(min-width : 500px){
   h2{
@@ -39,7 +39,7 @@ h2 {
 }
 
 p{
-  @apply text-[#94a5bb] sm:text-[#96aaa9] ;
+  @apply text-[#94a5bb] md:text-[#96aaa9] ;
 }
 
 input {

@@ -34,27 +34,6 @@
   transform: scale(1.05);
 }
 
-.like-icon {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 24px;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 6px;
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-  transition: all 0.3s ease;
-}
-
-.like-icon.liked {
-  animation: heartBeat 0.6s ease-in-out;
-}
-
-@keyframes heartBeat {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
 
 .movie-info {
   padding: 16px;
@@ -96,4 +75,64 @@
   .movie-title {
     font-size: 1.1rem;
   }
+}
+
+
+
+.like-icon {
+  --hue: 350deg; /* red/pink hue for heart */
+  --animation-duration: 1.2s;
+  --padding: 6px;
+  --border-radius: 50%;
+
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #00000050;
+  backdrop-filter: blur(1px);
+  border: none;
+  cursor: pointer;
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.5em;
+
+  /* Smooth transitions for press & hover */
+  transition:
+    transform 0.25s cubic-bezier(0.25, 1.5, 0.5, 2.2),
+    box-shadow 0.25s cubic-bezier(0.25, 1.5, 0.5, 1),
+    filter 0.3s cubic-bezier(0.25, 1.5, 0.5, 1);
+
+  will-change: transform, filter;
+}
+
+.like-icon:active {
+  transform: translate3d(0, 1px, -4px);
+  box-shadow:
+    1px 1px 2px -1px #fff inset,
+    0 1px 4px #00000020 inset;
+}
+
+/* Liked State — glowing, saturated */
+.like-icon.liked {
+  filter: drop-shadow(0 0 4px hsla(var(--hue), 100%, 70%, 0.8));
+}
+
+
+/* Borrowed keyframes — no change needed */
+@keyframes opacity-anim {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Pause pulse when button is pressed */
+.like-icon:active.pulse .icon-wrapper::after {
+  animation: none;
+  opacity: 1;
 }
