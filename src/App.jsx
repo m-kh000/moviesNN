@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {useDebounce} from "react-use";
+import { useDebounce } from "react-use";
 import "./css/App.css";
 import ScrollableMovieCards from "./ScrollableMovieCards";
 import Grid from "./Grid";
@@ -21,10 +21,9 @@ const API_OPTIONS = {
   },
 };
 
-
 function App() {
   const [search, setSearch] = useState("");
-  const [debouseSearch,setDebouseSearch] = useState("")
+  const [debouseSearch, setDebouseSearch] = useState("");
   const [errorMes, setErrorMes] = useState("");
   const [popularMovies, setPopularMovies] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -37,10 +36,10 @@ function App() {
 
   useDebounce(
     () => {
-      setDebouseSearch(search)
+      setDebouseSearch(search);
     },
-    1000,       //time in ms
-    [search]    //dep
+    1000, //time in ms
+    [search] //dep
   );
 
   const toggleView = () => {
@@ -56,14 +55,13 @@ function App() {
     setSearch(e.target.value);
   };
 
-
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
     setErrorMes("");
     try {
       const endpoint = query
-      ?`${API_BASE_URL}/search/movie?query=${encodeURI(query)}`
-      :`${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+        ? `${API_BASE_URL}/search/movie?query=${encodeURI(query)}`
+        : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endpoint, API_OPTIONS);
 
       if (!response.ok) {
@@ -78,10 +76,9 @@ function App() {
       }
       setPopularMovies(data.results);
 
-      if(query && data.results.length > 0){
-        updateCount(query,data.results[0]);
-    }
-
+      if (query && data.results.length > 0) {
+        updateCount(query, data.results[0]);
+      }
     } catch (error) {
       console.error("Error fetching movies:", error);
       setErrorMes("Failed to fetch. Please try again.");
@@ -97,13 +94,13 @@ function App() {
       setTrendingMovies(trending);
     };
     fetchTrending();
-  },[])
+  }, []);
 
   useEffect(() => {
     fetchMovies(debouseSearch);
   }, [debouseSearch]);
 
-    useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("likedMovies", JSON.stringify(likedMovies));
   }, [likedMovies]);
   // Optional: Filter movies based on search
@@ -126,52 +123,57 @@ function App() {
           />
         </div>
       </div>
-      
-        <div className="flex flex-wrap justify-center place-items-center max-w-[98vw] ">
-            {Array.from({length: 5}).map((_, index) => {
-              const movie = trendingMovies[index];
-              return (
-                <div
-                  key={movie?.$id || index}
-                  className="flex place-items-center justify-center lg:basis-1/5 basis-1/3 "
-                >
-                  <p className="font-bold text-[24vw] lg:text-[15vw]"
-                  style={{
-                  WebkitTextStroke: '1px #96aaa9',
-                  color: 'transparent'}}>
-                    {index + 1}
-                  </p>
-                  {movie ? (
-                    movie.poster_url != "https://image.tmdb.org/t/p/w500null" ? (
-                      <img
-                        src={movie.poster_url}
-                        alt="poster"
-                        className="w-18 h-26 rounded-2xl sm:w-28 sm:h-42 shadow-black -translate-x-5 sm:-translate-x-8"
-                      />
-                    ) : (
-                      <div className="w-18 h-26 sm:w-28 sm:h-42 bg-[#1d2129ee] sm:bg-[#1a1a25ee] rounded-2xl shadow-black -translate-x-5 sm:-translate-x-8 place-items-center ">
-                        <div className="w-fit h-full flex place-items-center"><img 
-                          src={pl}
-                          className="w-8 h-8"/>
-                      </div>
-                      </div>
-                    )
-                  ) : (
-                    <div className="w-18 h-26 sm:w-24 sm:h-36 animate-pulse rounded-2xl -translate-x-5 sm:-translate-x-8" style={{backgroundColor: '#7a8e8d'}} />
-                  )}
-                </div>
-              );
-            })}
-          </div>
 
-        <input
-          type="search"
-          placeholder="Search for movies"
-          value={search}
-          onChange={handleSearch}
-          className="search-input"
-        />
+      <div className="flex flex-wrap justify-center place-items-center max-w-[98vw] ">
+        {Array.from({ length: 5 }).map((_, index) => {
+          const movie = trendingMovies[index];
+          return (
+            <div
+              key={movie?.$id || index}
+              className="flex place-items-center justify-center lg:basis-1/5 basis-1/3 "
+            >
+              <p
+                className="font-bold text-[24vw] lg:text-[15vw]"
+                style={{
+                  WebkitTextStroke: "1px #96aaa9",
+                  color: "transparent",
+                }}
+              >
+                {index + 1}
+              </p>
+              {movie ? (
+                movie.poster_url != "https://image.tmdb.org/t/p/w500null" ? (
+                  <img //must be same as
+                    src={movie.poster_url}
+                    alt="poster"
+                    className="w-18 h-26 rounded-2xl sm:w-28 sm:h-42 shadow-black -translate-x-5 sm:-translate-x-8"
+                  />
+                ) : (
+                  //this
+                  <div className=" bg-[#1d2129ee] sm:bg-[#1a1a25ee] place-items-center w-18 h-26 rounded-2xl sm:w-28 sm:h-42 shadow-black -translate-x-5 sm:-translate-x-8">
+                    <div className="w-fit h-full flex place-items-center">
+                      <img src={pl} className="w-8 h-8" />
+                    </div>
+                  </div>
+                )
+              ) : (
+                <div //and this
+                  className=" animate-pulse w-18 h-26 rounded-2xl sm:w-28 sm:h-42 shadow-black -translate-x-5 sm:-translate-x-8"
+                  style={{ backgroundColor: "#7a8e8d" }}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
 
+      <input
+        type="search"
+        placeholder="Search for movies"
+        value={search}
+        onChange={handleSearch}
+        className="search-input"
+      />
 
       {isLoading ? (
         <PuffLoader color="#768d91" size={50} />
@@ -180,9 +182,13 @@ function App() {
       ) : (
         <div id="popular-container" className="w-[95vw]">
           <div className="section ">
-            <h2>{debouseSearch.length == 0 ?"Popular Movies":`Search results for ${debouseSearch}`}</h2>
+            <h2>
+              {debouseSearch.length == 0
+                ? "Popular Movies"
+                : `Search results for ${debouseSearch}`}
+            </h2>
             <button id="toggle-view" onClick={toggleView}>
-              <img  src={isGrid ? scr : grid} className="icon"/>
+              <img src={isGrid ? scr : grid} className="icon" />
             </button>
           </div>
 
