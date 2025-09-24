@@ -24,12 +24,16 @@ const API_OPTIONS = {
 function App() {
   const [search, setSearch] = useState("");
   const [debouseSearch, setDebouseSearch] = useState("");
+  const [textAboveSearch, settextAboveSearch] = useState("");
   const [errorMes, setErrorMes] = useState("");
-  const [popularMovies, setPopularMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isGrid, setIsGrid] = useState(true);
+  const [t1isGrid, set1IsGrid] = useState(true);
+  const [t2isGrid, set2IsGrid] = useState(false);
   const [likedMovies, setLikedMovies] = useState(() => {
+
+    
     const saved = localStorage.getItem("likedMovies");
     return saved ? JSON.parse(saved) : {};
   });
@@ -42,14 +46,18 @@ function App() {
     [search] //dep
   );
 
-  const toggleView = () => {
-    setIsGrid((prev) => !prev);
+  const toggleView = (f) => {
+    f((prev) => !prev);
   };
-  const toggleLike = (movieId) => {
-    setLikedMovies((prev) => ({
-      ...prev,
-      [movieId]: !prev[movieId],
-    }));
+  const toggleLike = (movie) => {
+    setLikedMovies((prev) => {
+      if (prev[movie.id]) {
+        const { [movie.id]: removed, ...rest } = prev;
+        return rest;
+      } else {
+        return { ...prev, [movie.id]: movie };
+      }
+    });
   };
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -71,10 +79,10 @@ function App() {
       const data = await response.json();
       if (!data.results || data.results.length === 0) {
         setErrorMes("No movies found.");
-        setPopularMovies([]);
+        setMovies([]);
         return;
       }
-      setPopularMovies(data.results);
+      setMovies(data.results);
 
       if (query && data.results.length > 0) {
         updateCount(query, data.results[0]);
@@ -82,7 +90,7 @@ function App() {
     } catch (error) {
       console.error("Error fetching movies:", error);
       setErrorMes("Failed to fetch. Please try again.");
-      setPopularMovies([]);
+      setMovies([]);
     } finally {
       setIsLoading(false);
     }
@@ -97,18 +105,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetchMovies(debouseSearch);
+    if (debouseSearch.length == 0) {
+      fetchMovies();
+      settextAboveSearch("Popular Movies")
+    }else if( debouseSearch.length >= 4){
+      fetchMovies(debouseSearch);
+      settextAboveSearch(`Search results for ${debouseSearch}`)
+    }
+    // For lengths 1-3, do nothing - keep previous results
   }, [debouseSearch]);
 
   useEffect(() => {
     localStorage.setItem("likedMovies", JSON.stringify(likedMovies));
+    console.log("Saved to localStorage:", likedMovies);
+    console.log("Object.values(likedMovies):", Object.values(likedMovies));
+    console.log("movies:", movies);
   }, [likedMovies]);
-  // Optional: Filter movies based on search
-  // const displayedMovies = search
-  //   ? popularMovies.filter((movie) =>
-  //       movie.title?.toLowerCase().includes(search.toLowerCase())
-  //     )
-  //   : popularMovies;
 
   return (
     <div className="place-items-center mt-11 mb-50">
@@ -183,30 +195,54 @@ function App() {
         <div id="popular-container" className="w-[95vw]">
           <div className="section ">
             <h2>
-              {debouseSearch.length == 0
-                ? "Popular Movies"
-                : `Search results for ${debouseSearch}`}
+              {textAboveSearch}
             </h2>
-            <button id="toggle-view" onClick={toggleView}>
-              <img src={isGrid ? scr : grid} className="icon" />
+            <button id="toggle-view" onClick={() => toggleView(set1IsGrid)}>
+              <img src={t1isGrid ? scr : grid} className="icon" />
             </button>
           </div>
 
-          {isGrid ? (
+          {t1isGrid ? (
             <Grid
-              popularMovies={popularMovies}
+              popularMovies={movies}
               onToggleLike={toggleLike}
               likedMovies={likedMovies}
             />
           ) : (
             <ScrollableMovieCards
-              movies={popularMovies}
+              movies={movies}
               onToggleLike={toggleLike}
               likedMovies={likedMovies}
             />
           )}
         </div>
       )}
+
+      {Object.keys(likedMovies).length > 0 && (
+        <div id="fav-container" className="w-[95vw]">
+          <div className="section">
+            <h2>Favorites</h2>
+            <button id="toggle-fav-view" onClick={() => toggleView(set2IsGrid)}>
+              <img src={t2isGrid ? scr : grid} className="icon" />
+            </button>
+          </div>
+
+          {t2isGrid ? (
+            <Grid
+              popularMovies={Object.values(likedMovies)}
+              onToggleLike={toggleLike}
+              likedMovies={likedMovies}
+            />
+          ) : (
+            <ScrollableMovieCards
+              movies={Object.values(likedMovies)}
+              onToggleLike={toggleLike}
+              likedMovies={likedMovies}
+            />
+          )}
+        </div>
+      )}
+
     </div>
   );
 }

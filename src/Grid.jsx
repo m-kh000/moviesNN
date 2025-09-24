@@ -9,10 +9,10 @@ const Grid = ({ popularMovies, likedMovies, onToggleLike }) => {
       <div className="movie-grid">
         {popularMovies.map((movie) => (
           <MovieCard
-            key={movie.id} // Use movie.id instead of index
+            key={movie.id}
             movie={movie}
-            isLiked={likedMovies[movie.id] ?? false}
-            onLike={() => onToggleLike(movie.id)}
+            isLiked={!!likedMovies[movie.id]}
+            onLike={() => onToggleLike(movie)}
           />
         ))}
       </div>

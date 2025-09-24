@@ -89,11 +89,11 @@ const MovieCard = ({ movie: { poster_path, title, release_date, vote_average, or
             : 'opacity-0 group-hover:opacity-100'
         }
       `}>
-        <h3 className="font-bold text-lg mb-1">{title}</h3>
+        <h3 className="font-bold text-lg mb-1 break-words">{title}</h3>
         <p className="text-xl mb-2">{genre}</p>
         <p className="text-sm">⭐ {vote_average || "N/A"}</p>
         {vote_average && (
-          <p className="text-[13px] px-2">{overview}</p>
+          <p className="text-[13px] px-2 break-words whitespace-normal leading-tight">{overview}</p>
         )}
       </div>
     </div>

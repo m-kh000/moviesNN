@@ -9,10 +9,10 @@ const ScrollableMovieCards = ({ movies, likedMovies, onToggleLike }) => {
       <div className="cards-container">
         {movies.map((movie) => (
           <MovieCard
-            key={movie.id} // Use movie.id for key
+            key={movie.id}
             movie={movie}
-            isLiked={likedMovies[movie.id] ?? false}
-            onLike={() => onToggleLike(movie.id)}
+            isLiked={!!likedMovies[movie.id]}
+            onLike={() => onToggleLike(movie)}
           />
         ))}
       </div>
