@@ -13,7 +13,7 @@ const TrendingSection = ({ trendingMovies }) => {
             <p
               className="font-bold text-[24vw] lg:text-[15vw]"
               style={{
-                WebkitTextStroke: "1px #8283a8",
+                WebkitTextStroke: "1px #6c7c9e",
                 color: "transparent",
               }}
             >

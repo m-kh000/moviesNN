@@ -8,14 +8,17 @@ body {
   background-image: url('/img/3000m.jpg'); /* Your image */
   background-repeat: no-repeat;
   background-position: top center;
-  background-size: 100% auto; /* Full width, preserve aspect ratio */
+  background-size: contain; /* Show full image */
   min-height: 100vh; /* Ensures body takes at least full viewport height */
-  width: 110%;
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 @media(min-width : 500px){
   body{
   background-image: url("/img/3000.jpg"); /* Your image */
+  background-size: 100% auto;
   width: 100%;
 }}
 
