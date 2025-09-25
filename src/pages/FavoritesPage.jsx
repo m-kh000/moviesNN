@@ -50,7 +50,7 @@ const FavoritesPage = () => {
   }
 
   return (
-    <div>
+    <div className="w-[100vw]">
       <Navbar />
       <div className="w-[100vw] place-items-center mt-11 mb-50">
         <Header />

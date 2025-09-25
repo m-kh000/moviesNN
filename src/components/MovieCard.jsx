@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "../css/MovieCard.css";
 import pl from "/img/img pl.svg";
+import likedIcon from "/img/liked.svg";
+import notLikedIcon from "/img/not liked.svg";
 
 const MovieCard = ({ movie: { poster_path, title, release_date, vote_average, original_language, genre, overview }, isLiked, onLike }) => {
   const [showOverlay, setShowOverlay] = useState(false);
@@ -64,7 +66,7 @@ const MovieCard = ({ movie: { poster_path, title, release_date, vote_average, or
           onClick={handleLikeClick} 
           className={`z-30 like-icon ${isLiked ? 'liked' : ''}`}
         >
-          {isLiked ? '❤️' : '🤍'}
+          <img src={isLiked ? likedIcon : notLikedIcon} alt={isLiked ? 'Liked' : 'Not liked'} className="!w-6 !h-6" />
         </button>
       </div>
       <div className="movie-info">

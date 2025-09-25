@@ -82,7 +82,7 @@
 .like-icon {
   --hue: 350deg; /* red/pink hue for heart */
   --animation-duration: 1.2s;
-  --padding: 6px;
+  --padding: 10px;
   --border-radius: 50%;
 
   position: absolute;
@@ -94,6 +94,7 @@
   cursor: pointer;
   padding: var(--padding);
   border-radius: var(--border-radius);
+  display: flex;
   align-items: center;
   justify-content: center;
 
