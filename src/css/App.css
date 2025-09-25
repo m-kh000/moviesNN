@@ -28,12 +28,12 @@ body {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
   font-style: normal;
-  @apply text-[#6c7c9e] md:text-[#7283a8] my-20 sm:my-30 text-[80px] sm:text-[90px];
+  @apply text-[#5c7c9e] md:text-[#7283a8] my-20 sm:my-30 text-[80px] sm:text-[90px];
 }
 
 h2 {
   font-size: 22px;
-  @apply text-[#6c7c9e] md:text-[#7283a8] ;
+  @apply text-[#5c7c9e] md:text-[#7283a8] ;
 }
 @media(min-width : 500px){
   h2{
@@ -42,7 +42,7 @@ h2 {
 }
 
 p{
-  @apply text-[#94a5bb] md:text-[#96aab9];
+  @apply text-[#84a5bb] md:text-[#96aab9];
 }
 
 input {

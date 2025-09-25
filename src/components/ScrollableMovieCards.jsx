@@ -1,7 +1,7 @@
 // ScrollableMovieCards.jsx
 import React from "react";
 import MovieCard from "./MovieCard";
-import "./css/ScrollableMovieCards.css";
+import "../css/ScrollableMovieCards.css";
 
 const ScrollableMovieCards = ({ movies, likedMovies, onToggleLike }) => {
   return (

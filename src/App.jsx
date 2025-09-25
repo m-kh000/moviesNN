@@ -1,7 +1,7 @@
 import "./css/App.css";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import FavoritesPage from "./FavoritesPage";
+import Home from "./pages/Home";
+import FavoritesPage from "./pages/FavoritesPage";
 
 function App() {
   return (

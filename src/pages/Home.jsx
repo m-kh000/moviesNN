@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
 import { PuffLoader } from "react-spinners";
-import ShinyText from "./ShinyText";
-import TrendingSection from "./TrendingSection";
-import PopularSection from "./PopularSection";
-import FavoritesSection from "./FavoritesSection";
-import Navbar from "./Navbar";
-import { getTrendingMovies, updateCount } from "./appwrite";
+import ShinyText from "../components/ShinyText";
+import TrendingSection from "../components/TrendingSection";
+import PopularSection from "../components/PopularSection";
+import FavoritesSection from "../components/FavoritesSection";
+import Navbar from "../components/Navbar";
+import { getTrendingMovies, updateCount } from "../appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;

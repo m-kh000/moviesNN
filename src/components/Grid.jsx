@@ -1,7 +1,7 @@
 // Grid.jsx
 import React from "react";
 import MovieCard from "./MovieCard"; // Make sure component name matches
-import "./css/Grid.css";
+import "../css/Grid.css";
 
 const Grid = ({ popularMovies, likedMovies, onToggleLike }) => {
   return (

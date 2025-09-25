@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./css/MovieCard.css";
+import "../css/MovieCard.css";
 import pl from "/img/img pl.svg";
 
 const MovieCard = ({ movie: { poster_path, title, release_date, vote_average, original_language, genre, overview }, isLiked, onLike }) => {
