@@ -117,7 +117,6 @@ const Home = () => {
 
   return (
     <div className="w-[100vw]">
-      <Navbar />
       <div className="place-items-center mt-11 mb-50">
       <div className="w-[98vw] sm:w-[98vw] my-10 ">
         <div className="h1">

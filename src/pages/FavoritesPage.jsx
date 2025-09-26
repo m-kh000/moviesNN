@@ -2,29 +2,15 @@ import { useState } from "react";
 import Grid from "../components/Grid";
 import ScrollableMovieCards from "../components/ScrollableMovieCards";
 import ShinyText from "../components/ShinyText";
-import Navbar from "../components/Navbar";
+import { useFavorites } from "../contexts/FavoritesContext";
 import scr from "/img/scr.svg";
 import grid from "/img/grid.svg";
 
 const FavoritesPage = () => {
   const [isGrid, setIsGrid] = useState(true);
-  const [likedMovies, setLikedMovies] = useState(() => {
-    const saved = localStorage.getItem("likedMovies");
-    return saved ? JSON.parse(saved) : {};
-  });
-
-  const toggleLike = (movie) => {
-    setLikedMovies((prev) => {
-      const updated = prev[movie.id] 
-        ? { ...prev, [movie.id]: undefined } 
-        : { ...prev, [movie.id]: movie };
-      
-      localStorage.setItem("likedMovies", JSON.stringify(updated));
-      return updated;
-    });
-  };
-
-  const moviesArray = Object.values(likedMovies).filter(Boolean);
+  const { likedMovies, toggleLike, getFavorites } = useFavorites();
+  
+  const moviesArray = getFavorites();
   const isEmpty = moviesArray.length === 0;
 
   const Header = () => (
@@ -36,8 +22,6 @@ const FavoritesPage = () => {
 
   if (isEmpty) {
     return (
-      <div>
-        <Navbar />
         <div className="w-[100vw] place-items-center mt-11 mb-50">
           <Header />
           <div className="w-[95vw] text-center">
@@ -45,13 +29,10 @@ const FavoritesPage = () => {
             <p className="text-gray-400">Start liking movies to see them here!</p>
           </div>
         </div>
-      </div>
     );
   }
 
   return (
-    <div className="w-[100vw]">
-      <Navbar />
       <div className="w-[100vw] place-items-center mt-11 mb-50">
         <Header />
         <div className="w-[95vw]">
@@ -76,7 +57,6 @@ const FavoritesPage = () => {
           )}
         </div>
       </div>
-    </div>
   );
 };
 
